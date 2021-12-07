@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api</title>
+</head>
+<body>
+    
+    <form action="">
+        <label for="cep">Cep</label> <br>
+        <input type="text" id="cep"> <br>
+
+        <label for="cep">Bairro</label> <br>
+        <input type="text" id="bairro"> <br>
+
+        <label for="cep">ddd</label> <br>
+        <input type="text" id="ddd"> <br>
+
+        <label for="cep">IBGE</label> <br>
+        <input type="text" id="ibge"> <br>
+
+        <label for="cep">Localidade</label> <br>
+        <input type="text" id="localidade"> <br>
+
+        <label for="cep">Lagradouro</label> <br>
+        <input type="text" id="logradouro"> <br>
+
+        <label for="cep">UF</label> <br>
+        <input type="text" id="uf"> <br>
+        
+        <label for="nome">Nome</label> <br>
+        <input type="text" id="nome"> <br>
+
+        <input type="button" onclick="enviar()" value="Enviar">
+    </form>
+
+    <script>
+        const cep = document.getElementById('cep')
+        cep.addEventListener("blur", (e)=> {
+            let Cep = document.getElementById("cep").value;
+            let search = cep.value.replace("-","")
+            fetch(`https://viacep.com.br/ws/${search}/json/`).then((response)=>{
+                response.json().then(data=>{
+                    console.log(data)
+                    document.getElementById("bairro").value = data.bairro;
+                    document.getElementById("ddd").value = data.ddd;
+                    document.getElementById("ibge").value = data.ibge;
+                    document.getElementById("localidade").value = data.localidade;
+                    document.getElementById("logradouro").value = data.logradouro;
+                    document.getElementById("uf").value = data.uf;
+                })
+            })
+        })
+
+        function enviar(){
+            let bairro = document.getElementById("bairro").value;
+            let ddd = document.getElementById("ddd").value;
+            let ibge = document.getElementById("ibge").value;
+            let localidade = document.getElementById("localidade").value;
+            let logradouro = document.getElementById("logradouro").value;
+            let uf = document.getElementById("uf").value;
+            let nome = document.getElementById("nome").value
+
+
+            let json = {
+                "bairro" : bairro,
+                "ddd" : ddd,
+                "ibge" : ibge,
+                "localidade" : localidade,
+                "logradouro" : logradouro,
+                "uf": uf,
+                "nome": nome
+            }
+            console.log(json);
+
+        };
+    </script>
+</body>
+</html>
